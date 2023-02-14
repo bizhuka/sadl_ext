@@ -7,6 +7,7 @@ interface ZIF_SADL_STREAM_RUNTIME
   methods GET_STREAM
     importing
       !IO_SRV_RUNTIME type ref to /IWBEP/IF_MGW_CONV_SRV_RUNTIME
+      !IV_FILTER type STRING optional
       !IV_ENTITY_NAME type STRING optional
       !IV_ENTITY_SET_NAME type STRING optional
       !IV_SOURCE_NAME type STRING optional

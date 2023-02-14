@@ -17,44 +17,59 @@
      <PROGRAMNAME>CL_SADL_ENTITY_RUNTIME========CP</PROGRAMNAME>
      <ENHMODE>D</ENHMODE>
      <FULL_NAME>\TY:CL_SADL_ENTITY_RUNTIME\ME:_DELETE\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>DO 1 TIMES.</item>
+      <item>CHECK  mo_mdp         IS NOT INITIAL</item>
+      <item>AND mo_sadl_entity IS NOT INITIAL</item>
+      <item>AND me-&gt;mv_structure_name CP &apos;Z*&apos;.</item>
+      <item/>
+      <item>mo_sadl_entity-&gt;get_annotations( IMPORTING et_entity_annotations = DATA(lt_zabap_annotation) ).</item>
+      <item>ASSIGN lt_zabap_annotation[ name = zcl_sadl_annotation_ext=&gt;id ] TO FIELD-SYMBOL(&lt;ls_zabap_anno&gt;).</item>
+      <item>CHECK sy-subrc = 0.</item>
+      <item/>
+      <item>DATA(lo_sadl_exit) = zcl_sadl_annotation_ext=&gt;create( &lt;ls_zabap_anno&gt;-value ).</item>
+      <item>CHECK lo_sadl_exit IS NOT INITIAL</item>
+      <item>AND lo_sadl_exit IS INSTANCE OF zif_sadl_delete_runtime.</item>
+      <item/>
+      <item>CAST zif_sadl_delete_runtime( lo_sadl_exit</item>
+      <item>)-&gt;execute( EXPORTING iv_alternative_key_name = iv_alternative_key_name</item>
+      <item>it_key_values           = it_key_values</item>
+      <item>IMPORTING et_failed               = et_failed ).</item>
+      <item>RETURN.</item>
+      <item>ENDDO.</item>
+      <item/>
+     </SOURCE>
     </ENH_HOOK_IMPL>
    </ENHANCEMENTS>
-   <FILES>
+   <SPACES>
     <item>
-     <NAME>\TY:CL_SADL_ENTITY_RUNTIME\ME:_DELETE\SE:BEGIN\EI</NAME>
-     <FILE>2b7411af</FILE>
+     <FULL_NAME>\TY:CL_SADL_ENTITY_RUNTIME\ME:_DELETE\SE:BEGIN\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>1</item>
+      <item>3</item>
+      <item>6</item>
+      <item>6</item>
+      <item>0</item>
+      <item>3</item>
+      <item>3</item>
+      <item>3</item>
+      <item>0</item>
+      <item>3</item>
+      <item>3</item>
+      <item>5</item>
+      <item>0</item>
+      <item>3</item>
+      <item>15</item>
+      <item>37</item>
+      <item>27</item>
+      <item>3</item>
+      <item>1</item>
+      <item>0</item>
+     </SPACES>
     </item>
-   </FILES>
-   <SOTR>
-    <item>
-     <HEADER>
-      <CONCEPT>65D968DD9C7E1EDD9C962E5DFE42AECD</CONCEPT>
-      <CREA_LAN>E</CREA_LAN>
-      <TRALA_TYPE>1</TRALA_TYPE>
-      <OBJID_VEC>AAI=</OBJID_VEC>
-     </HEADER>
-     <ENTRIES>
-      <SOTR_TEXT>
-       <CONCEPT>65D968DD9C7E1EDD9C962E5DFE42AECD</CONCEPT>
-       <LANGU>E</LANGU>
-       <LFD_NUM>0001</LFD_NUM>
-       <FLAG_CNTXT>X</FLAG_CNTXT>
-       <STATUS>R</STATUS>
-       <LENGTH>060</LENGTH>
-       <TEXT>Call ZIF_SADL_DELETE_RUNTIME-&gt;execute( )</TEXT>
-      </SOTR_TEXT>
-     </ENTRIES>
-    </item>
-   </SOTR>
-   <SOTR_USE>
-    <SOTR_USE>
-     <PGMID>R3TR</PGMID>
-     <OBJECT>ENHO</OBJECT>
-     <OBJ_NAME>ZSADL_EXT_SADL_ENTITY_RUNTIME</OBJ_NAME>
-     <CONCEPT>65D968DD9C7E1EDD9C962E5DFE42AECD</CONCEPT>
-     <LFD_NUM>0001</LFD_NUM>
-    </SOTR_USE>
-   </SOTR_USE>
+   </SPACES>
   </asx:values>
  </asx:abap>
 </abapGit>

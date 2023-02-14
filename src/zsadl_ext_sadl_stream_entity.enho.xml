@@ -17,53 +17,149 @@
      <PROGRAMNAME>/IWBEP/CL_MGW_ABS_DATA========CP</PROGRAMNAME>
      <ENHMODE>D</ENHMODE>
      <FULL_NAME>\TY:/IWBEP/CL_MGW_ABS_DATA\IN:/IWBEP/IF_MGW_APPL_SRV_RUNTIME\ME:CREATE_STREAM\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>DO 1 TIMES.</item>
+      <item>CHECK mr_service_document_name IS NOT INITIAL.</item>
+      <item/>
+      <item>TRY.</item>
+      <item>DATA(lo_zabap_stream_runtime) = zcl_sadl_filter=&gt;get_stream_runtime(</item>
+      <item>iv_service_name    = mr_service_document_name-&gt;*</item>
+      <item>iv_entity_set_name = iv_entity_set_name &quot; iv_entity_name</item>
+      <item>).</item>
+      <item>CHECK lo_zabap_stream_runtime IS NOT INITIAL.</item>
+      <item/>
+      <item>CAST zif_sadl_stream_runtime( lo_zabap_stream_runtime )-&gt;create_stream(</item>
+      <item>EXPORTING io_srv_runtime          = me</item>
+      <item>iv_entity_name          = iv_entity_name</item>
+      <item>iv_entity_set_name      = iv_entity_set_name</item>
+      <item>iv_source_name          = iv_source_name</item>
+      <item>is_media_resource       = is_media_resource</item>
+      <item>it_key_tab              = it_key_tab</item>
+      <item>it_navigation_path      = it_navigation_path</item>
+      <item>iv_slug                 = iv_slug</item>
+      <item>io_tech_request_context = io_tech_request_context</item>
+      <item>IMPORTING er_entity               = er_entity ).</item>
+      <item>RETURN.</item>
+      <item>CATCH cx_sadl_static INTO DATA(lo_zabap_error).</item>
+      <item>RAISE EXCEPTION TYPE /iwbep/cx_mgw_tech_exception</item>
+      <item>EXPORTING</item>
+      <item>previous = lo_zabap_error.</item>
+      <item>ENDTRY.</item>
+      <item>ENDDO.</item>
+      <item/>
+     </SOURCE>
     </ENH_HOOK_IMPL>
     <ENH_HOOK_IMPL>
      <PROGRAMNAME>/IWBEP/CL_MGW_ABS_DATA========CP</PROGRAMNAME>
      <ENHMODE>D</ENHMODE>
      <FULL_NAME>\TY:/IWBEP/CL_MGW_ABS_DATA\IN:/IWBEP/IF_MGW_APPL_SRV_RUNTIME\ME:GET_STREAM\SE:BEGIN\EI</FULL_NAME>
+     <SOURCE>
+      <item/>
+      <item>DO 1 TIMES.</item>
+      <item>CHECK mr_service_document_name IS NOT INITIAL.</item>
+      <item/>
+      <item>TRY.</item>
+      <item>DATA(lo_zabap_stream_runtime) = zcl_sadl_filter=&gt;get_stream_runtime(</item>
+      <item>iv_service_name    = mr_service_document_name-&gt;*</item>
+      <item>iv_entity_set_name = iv_entity_set_name &quot; iv_entity_name</item>
+      <item>).</item>
+      <item>CHECK lo_zabap_stream_runtime IS NOT INITIAL.</item>
+      <item/>
+      <item>CAST zif_sadl_stream_runtime( lo_zabap_stream_runtime )-&gt;get_stream(</item>
+      <item>EXPORTING io_srv_runtime          = me</item>
+      <item>iv_filter               = zcl_sadl_filter=&gt;get_stream_filter( io_tech_request_context )</item>
+      <item>iv_entity_name          = iv_entity_name</item>
+      <item>iv_entity_set_name      = iv_entity_set_name</item>
+      <item>iv_source_name          = iv_source_name</item>
+      <item>it_key_tab              = it_key_tab</item>
+      <item>it_navigation_path      = it_navigation_path</item>
+      <item>io_tech_request_context = io_tech_request_context</item>
+      <item>IMPORTING er_stream               = er_stream</item>
+      <item>es_response_context     = es_response_context ).</item>
+      <item>RETURN.</item>
+      <item>CATCH cx_sadl_static INTO DATA(lo_zabap_error).</item>
+      <item>RAISE EXCEPTION TYPE /iwbep/cx_mgw_tech_exception</item>
+      <item>EXPORTING</item>
+      <item>previous = lo_zabap_error.</item>
+      <item>ENDTRY.</item>
+      <item>ENDDO.</item>
+      <item/>
+     </SOURCE>
     </ENH_HOOK_IMPL>
    </ENHANCEMENTS>
-   <FILES>
+   <SPACES>
     <item>
-     <NAME>\TY:/IWBEP/CL_MGW_ABS_DATA\IN:/IWBEP/IF_MGW_APPL_SRV_RUNTIME\ME:CREATE_STREAM\SE:BEGIN\EI</NAME>
-     <FILE>0cef78ae</FILE>
+     <FULL_NAME>\TY:/IWBEP/CL_MGW_ABS_DATA\IN:/IWBEP/IF_MGW_APPL_SRV_RUNTIME\ME:CREATE_STREAM\SE:BEGIN\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>4</item>
+      <item>6</item>
+      <item>0</item>
+      <item>6</item>
+      <item>10</item>
+      <item>13</item>
+      <item>13</item>
+      <item>10</item>
+      <item>10</item>
+      <item>0</item>
+      <item>10</item>
+      <item>12</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>12</item>
+      <item>10</item>
+      <item>8</item>
+      <item>10</item>
+      <item>12</item>
+      <item>14</item>
+      <item>6</item>
+      <item>4</item>
+      <item>0</item>
+     </SPACES>
     </item>
     <item>
-     <NAME>\TY:/IWBEP/CL_MGW_ABS_DATA\IN:/IWBEP/IF_MGW_APPL_SRV_RUNTIME\ME:GET_STREAM\SE:BEGIN\EI</NAME>
-     <FILE>73c5c1a6</FILE>
+     <FULL_NAME>\TY:/IWBEP/CL_MGW_ABS_DATA\IN:/IWBEP/IF_MGW_APPL_SRV_RUNTIME\ME:GET_STREAM\SE:BEGIN\EI</FULL_NAME>
+     <SPACES>
+      <item>0</item>
+      <item>4</item>
+      <item>6</item>
+      <item>0</item>
+      <item>6</item>
+      <item>10</item>
+      <item>13</item>
+      <item>13</item>
+      <item>10</item>
+      <item>10</item>
+      <item>0</item>
+      <item>10</item>
+      <item>12</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>22</item>
+      <item>12</item>
+      <item>22</item>
+      <item>10</item>
+      <item>8</item>
+      <item>10</item>
+      <item>12</item>
+      <item>14</item>
+      <item>6</item>
+      <item>4</item>
+      <item>0</item>
+     </SPACES>
     </item>
-   </FILES>
-   <SOTR>
-    <item>
-     <HEADER>
-      <CONCEPT>65D968DD9C7E1EDD9C9644B65F225018</CONCEPT>
-      <CREA_LAN>E</CREA_LAN>
-      <TRALA_TYPE>1</TRALA_TYPE>
-      <OBJID_VEC>AAI=</OBJID_VEC>
-     </HEADER>
-     <ENTRIES>
-      <SOTR_TEXT>
-       <CONCEPT>65D968DD9C7E1EDD9C9644B65F225018</CONCEPT>
-       <LANGU>E</LANGU>
-       <LFD_NUM>0001</LFD_NUM>
-       <FLAG_CNTXT>X</FLAG_CNTXT>
-       <STATUS>R</STATUS>
-       <LENGTH>060</LENGTH>
-       <TEXT>Call ZIF_SADL_STREAM_RUNTIME-&gt;execute( )</TEXT>
-      </SOTR_TEXT>
-     </ENTRIES>
-    </item>
-   </SOTR>
-   <SOTR_USE>
-    <SOTR_USE>
-     <PGMID>R3TR</PGMID>
-     <OBJECT>ENHO</OBJECT>
-     <OBJ_NAME>ZSADL_EXT_SADL_STREAM_ENTITY</OBJ_NAME>
-     <CONCEPT>65D968DD9C7E1EDD9C9644B65F225018</CONCEPT>
-     <LFD_NUM>0001</LFD_NUM>
-    </SOTR_USE>
-   </SOTR_USE>
+   </SPACES>
   </asx:values>
  </asx:abap>
 </abapGit>

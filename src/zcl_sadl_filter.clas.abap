@@ -7,7 +7,7 @@ public section.
 
   types:
     tt_condition_provider TYPE STANDARD TABLE OF REF TO if_sadl_condition_provider
-                                       WITH UNIQUE SORTED KEY provider COMPONENTS table_line .
+                                         WITH UNIQUE SORTED KEY provider COMPONENTS table_line .
 
   class-methods GET_FILTER
     importing
@@ -16,6 +16,11 @@ public section.
     exporting
       !EV_WHERE type STRING
       !ET_RANGE type IF_SADL_COND_PROVIDER_GRPD_RNG=>TT_GROUPED_RANGE .
+  class-methods GET_STREAM_FILTER
+    importing
+      !IO_REQUEST type ref to /IWBEP/IF_MGW_REQ_ENTITY
+    returning
+      value(RV_FILTER) type STRING .
   class-methods GET_STREAM_RUNTIME
     importing
       !IV_SERVICE_NAME type CSEQUENCE
@@ -25,25 +30,25 @@ public section.
     raising
       CX_SADL_STATIC .
   PROTECTED SECTION.
-private section.
+  PRIVATE SECTION.
 
-  class-methods _MAP_CONDITIONS_SQL
-    importing
-      !IT_SADL_CONDITIONS type IF_SADL_QUERY_ENGINE_TYPES=>TT_COMPLEX_CONDITION
-    exporting
-      !EV_CONDITION_EXPRESSION type STRING
-    changing
-      !CV_CURSOR type I .
-  class-methods _MAP_OPERATOR
-    importing
-      !IV_OPERATOR type STRING
-    exporting
-      !EV_SQL_OPERATOR type STRING .
-  class-methods _MERGE_RANGES
-    importing
-      !IT_RANGES type IF_SADL_COND_PROVIDER_GRPD_RNG=>TT_GROUPED_RANGE
-    changing
-      !CT_RANGES type IF_SADL_COND_PROVIDER_GRPD_RNG=>TT_GROUPED_RANGE .
+    CLASS-METHODS _map_conditions_sql
+      IMPORTING
+        !it_sadl_conditions      TYPE if_sadl_query_engine_types=>tt_complex_condition
+      EXPORTING
+        !ev_condition_expression TYPE string
+      CHANGING
+        !cv_cursor               TYPE i .
+    CLASS-METHODS _map_operator
+      IMPORTING
+        !iv_operator     TYPE string
+      EXPORTING
+        !ev_sql_operator TYPE string .
+    CLASS-METHODS _merge_ranges
+      IMPORTING
+        !it_ranges TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range
+      CHANGING
+        !ct_ranges TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range .
 ENDCLASS.
 
 
@@ -70,6 +75,12 @@ CLASS ZCL_SADL_FILTER IMPLEMENTATION.
   ENDMETHOD.
 
 
+  METHOD get_stream_filter.
+    CHECK io_request IS INSTANCE OF /iwbep/cl_mgw_request.
+    rv_filter = lcl_request=>get_filter( CAST #( io_request ) ).
+  ENDMETHOD.
+
+
   METHOD get_stream_runtime.
     CHECK iv_service_name CP 'Z*_CDS'.
 
@@ -77,7 +88,7 @@ CLASS ZCL_SADL_FILTER IMPLEMENTATION.
     DATA(lo_mp)  = NEW cl_sadl_mp_entity_exposure(
         it_paths = VALUE #( ( |CDS~{ iv_service_name(lv_len) }| ) )
         iv_expose_associations = abap_true
-        iv_sadl_id = `cl_sadl_metadata_provider_rds` ).
+        iv_sadl_id = |CDS_{ iv_service_name(lv_len) }| ). " `cl_sadl_metadata_provider_rds`
 
     DATA(lo_mdp) = cl_sadl_metadata_provider=>get( lo_mp ).
     DATA(ls_load) = lo_mdp->get_entity_load( iv_entity_set_name ).

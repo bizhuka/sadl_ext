@@ -12,6 +12,7 @@
    </VSEOINTERF>
    <DESCRIPTIONS>
     <SEOCOMPOTX>
+     <CLSNAME>ZIF_SADL_READ_RUNTIME</CLSNAME>
      <CMPNAME>EXECUTE</CMPNAME>
      <LANGU>E</LANGU>
      <DESCRIPT>Called after original data retrieval, either for single row</DESCRIPT>
