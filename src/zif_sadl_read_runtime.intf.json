@@ -1,0 +1,15 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "@ZABAP.virtualEntity",
+    "originalLanguage": "en"
+  },
+  "descriptions": {
+    "methods": [
+      {
+        "name": "EXECUTE",
+        "description": "Called after original data retrieval, either for single row"
+      }
+    ]
+  }
+}

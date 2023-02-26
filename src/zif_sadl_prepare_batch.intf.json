@@ -1,0 +1,33 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "@ZABAP.virtualEntity",
+    "originalLanguage": "en"
+  },
+  "descriptions": {
+    "methods": [
+      {
+        "name": "PREPARE",
+        "description": "Prepare SADL CRUD",
+        "exceptions": [
+          {
+            "name": "/IWBEP/CX_MGW_BUSI_EXCEPTION",
+            "description": "Business Exception"
+          },
+          {
+            "name": "/IWBEP/CX_MGW_TECH_EXCEPTION",
+            "description": "Technical Exception"
+          },
+          {
+            "name": "CX_SADL_CONTRACT_VIOLATION",
+            "description": "Consumer Fault"
+          },
+          {
+            "name": "CX_SADL_STATIC",
+            "description": "External errors during SADL processing"
+          }
+        ]
+      }
+    ]
+  }
+}

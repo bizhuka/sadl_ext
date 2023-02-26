@@ -1,0 +1,15 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "@ZABAP.virtualEntity",
+    "originalLanguage": "en"
+  },
+  "descriptions": {
+    "methods": [
+      {
+        "name": "CHANGE_CONDITION",
+        "description": "Prepare SQL"
+      }
+    ]
+  }
+}
