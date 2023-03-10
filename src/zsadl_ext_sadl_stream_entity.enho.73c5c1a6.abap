@@ -11,9 +11,13 @@ ENHANCEMENT 0 ZSADL_EXT_SADL_STREAM_ENTITY.
           ).
           CHECK lo_zabap_stream_runtime IS NOT INITIAL.
 
+          zcl_sadl_filter=>get_stream_filter( EXPORTING io_request = io_tech_request_context
+                                              IMPORTING ev_filter  = DATA(zz_lv_filter)
+                                                        et_filter  = DATA(zz_lt_filter) ).
           CAST zif_sadl_stream_runtime( lo_zabap_stream_runtime )->get_stream(
             EXPORTING io_srv_runtime          = me
-                      iv_filter               = zcl_sadl_filter=>get_stream_filter( io_tech_request_context )
+                      iv_filter               = zz_lv_filter
+                      it_filter               = zz_lt_filter
                       iv_entity_name          = iv_entity_name
                       iv_entity_set_name      = iv_entity_set_name
                       iv_source_name          = iv_source_name

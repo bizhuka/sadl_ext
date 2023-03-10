@@ -1,34 +1,35 @@
-class ZCL_SADL_FILTER definition
-  public
-  final
-  create public .
+CLASS zcl_sadl_filter DEFINITION
+  PUBLIC
+  FINAL
+  CREATE PUBLIC .
 
-public section.
+  PUBLIC SECTION.
 
-  types:
-    tt_condition_provider TYPE STANDARD TABLE OF REF TO if_sadl_condition_provider
-                                         WITH UNIQUE SORTED KEY provider COMPONENTS table_line .
+    TYPES:
+      tt_condition_provider TYPE STANDARD TABLE OF REF TO if_sadl_condition_provider
+                                           WITH UNIQUE SORTED KEY provider COMPONENTS table_line .
 
-  class-methods GET_FILTER
-    importing
-      !IT_SADL_CONDITIONS type IF_SADL_QUERY_ENGINE_TYPES=>TT_COMPLEX_CONDITION
-      !IT_CONDITION_PROVIDER type TT_CONDITION_PROVIDER
-    exporting
-      !EV_WHERE type STRING
-      !ET_RANGE type IF_SADL_COND_PROVIDER_GRPD_RNG=>TT_GROUPED_RANGE .
-  class-methods GET_STREAM_FILTER
-    importing
-      !IO_REQUEST type ref to /IWBEP/IF_MGW_REQ_ENTITY
-    returning
-      value(RV_FILTER) type STRING .
-  class-methods GET_STREAM_RUNTIME
-    importing
-      !IV_SERVICE_NAME type CSEQUENCE
-      !IV_ENTITY_SET_NAME type CSEQUENCE
-    returning
-      value(RO_RUNTIME) type ref to ZIF_SADL_STREAM_RUNTIME
-    raising
-      CX_SADL_STATIC .
+    CLASS-METHODS get_sadl_where
+      IMPORTING it_sadl_conditions    TYPE if_sadl_query_engine_types=>tt_complex_condition
+      RETURNING VALUE(rv_where) TYPE string .
+
+    CLASS-METHODS get_provider_range
+      IMPORTING it_condition_provider TYPE tt_condition_provider
+      RETURNING VALUE(rt_range) TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range .
+
+    CLASS-METHODS get_stream_filter
+      IMPORTING
+                !io_request TYPE REF TO /iwbep/if_mgw_req_entity
+      EXPORTING ev_filter   TYPE string
+                et_filter   TYPE /iwbep/t_mgw_select_option.
+    CLASS-METHODS get_stream_runtime
+      IMPORTING
+        !iv_service_name    TYPE csequence
+        !iv_entity_set_name TYPE csequence
+      RETURNING
+        VALUE(ro_runtime)   TYPE REF TO zif_sadl_stream_runtime
+      RAISING
+        cx_sadl_static .
   PROTECTED SECTION.
   PRIVATE SECTION.
 
@@ -56,28 +57,29 @@ ENDCLASS.
 CLASS ZCL_SADL_FILTER IMPLEMENTATION.
 
 
-  METHOD get_filter.
-    CLEAR: et_range,
-           ev_where.
-
-    DATA(l_cursor) = lines( it_sadl_conditions ).
-    _map_conditions_sql( EXPORTING it_sadl_conditions      = it_sadl_conditions
-                         IMPORTING ev_condition_expression = ev_where
-                         CHANGING  cv_cursor               = l_cursor ).
-
-**********************************************************************
+  METHOD get_provider_range.
     LOOP AT it_condition_provider INTO DATA(lo_provider).
       CHECK lo_provider IS INSTANCE OF cl_sadl_cond_grouped_ranges.
 
       _merge_ranges( EXPORTING it_ranges = lcl_provider=>get_range( CAST #( lo_provider ) )
-                     CHANGING  ct_ranges = et_range ).
+                     CHANGING  ct_ranges = rt_range ).
     ENDLOOP.
+  ENDMETHOD.
+
+
+  METHOD  get_sadl_where.
+    DATA(l_cursor) = lines( it_sadl_conditions ).
+    _map_conditions_sql( EXPORTING it_sadl_conditions      = it_sadl_conditions
+                         IMPORTING ev_condition_expression = rv_where
+                         CHANGING  cv_cursor               = l_cursor ).
   ENDMETHOD.
 
 
   METHOD get_stream_filter.
     CHECK io_request IS INSTANCE OF /iwbep/cl_mgw_request.
-    rv_filter = lcl_request=>get_filter( CAST #( io_request ) ).
+    lcl_request=>get_filter( EXPORTING io_request = CAST #( io_request )
+                             IMPORTING ev_filter  = ev_filter
+                                       et_filter  = et_filter ).
   ENDMETHOD.
 
 

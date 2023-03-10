@@ -21,12 +21,14 @@ ENDCLASS.
 CLASS lcl_request DEFINITION INHERITING FROM /iwbep/cl_mgw_request FINAL.
   PUBLIC SECTION.
     CLASS-METHODS:
-      get_filter IMPORTING io_request       TYPE REF TO /iwbep/cl_mgw_request
-                 RETURNING VALUE(rv_filter) TYPE string.
+      get_filter IMPORTING io_request TYPE REF TO /iwbep/cl_mgw_request
+                 EXPORTING ev_filter  TYPE string
+                           et_filter  TYPE /iwbep/t_mgw_select_option.
 ENDCLASS.
 
 CLASS lcl_request IMPLEMENTATION.
   METHOD get_filter.
-    rv_filter = io_request->mo_filter->get_filter_string( ).
+    ev_filter = io_request->mo_filter->get_filter_string( ).
+    et_filter = io_request->mo_filter->get_filter_select_options( ).
   ENDMETHOD.
 ENDCLASS.

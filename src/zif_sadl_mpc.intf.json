@@ -1,0 +1,27 @@
+{
+  "formatVersion": "1",
+  "header": {
+    "description": "@ZABAP.virtualEntity",
+    "originalLanguage": "en"
+  },
+  "descriptions": {
+    "methods": [
+      {
+        "name": "DEFINE",
+        "description": "Change oData model",
+        "parameters": [
+          {
+            "name": "IO_MODEL",
+            "description": "Interface for a Script-Based Model"
+          }
+        ],
+        "exceptions": [
+          {
+            "name": "/IWBEP/CX_MGW_MED_EXCEPTION",
+            "description": "Meta data exception"
+          }
+        ]
+      }
+    ]
+  }
+}

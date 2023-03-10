@@ -18,15 +18,10 @@ ENHANCEMENT 0 ZSADL_EXT_CL_SADL_ABQI.
    CHECK lo_sadl_exit IS NOT INITIAL
      AND lo_sadl_exit IS INSTANCE OF zif_sadl_prepare_read_runtime.
 
-   zcl_sadl_filter=>get_filter( EXPORTING it_sadl_conditions    = ct_condition
-                                          it_condition_provider = mt_condition_providers
-                                IMPORTING ev_where              = DATA(lv_zabap_where)
-                                          et_range              = DATA(lt_zabap_range) ).
-
    CAST zif_sadl_prepare_read_runtime( lo_sadl_exit
                )->change_condition( EXPORTING iv_node_name       = ls_zabap_load->sadl_entity-node_name
-                                              it_range           = lt_zabap_range
-                                              iv_where           = lv_zabap_where
+                                              it_range           = zcl_sadl_filter=>get_provider_range( mt_condition_providers )
+                                              iv_where           = zcl_sadl_filter=>get_sadl_where( ct_condition )
                                     CHANGING  ct_sadl_condition  = ct_condition ).
 
 ENDENHANCEMENT.

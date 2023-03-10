@@ -11,16 +11,12 @@
         "description": "Write binary data",
         "parameters": [
           {
-            "name": "ES_RESPONSE_CONTEXT",
-            "description": "Feed request response information (Entity)"
-          },
-          {
             "name": "IO_SRV_RUNTIME",
             "description": "OData Channel - Application Convenience Interface"
           },
           {
             "name": "IO_TECH_REQUEST_CONTEXT",
-            "description": "Request Details for Entity Read Operation"
+            "description": "Request Details for Entity Create Operation"
           },
           {
             "name": "IS_MEDIA_RESOURCE",
@@ -60,7 +56,11 @@
           },
           {
             "name": "IO_TECH_REQUEST_CONTEXT",
-            "description": "Request Details for Entity Read Operation"
+            "description": "Request Details for Entity Create Operation"
+          },
+          {
+            "name": "IS_MEDIA_RESOURCE",
+            "description": "Media Type Information"
           },
           {
             "name": "IT_KEY_TAB",
