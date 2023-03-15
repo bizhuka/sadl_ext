@@ -20,7 +20,7 @@ ENHANCEMENT 0 ZSADL_EXT_CL_SADL_ABQI.
 
    CAST zif_sadl_read_runtime( lo_sadl_exit
                )->execute( EXPORTING iv_node_name       = ls_zabap_load->sadl_entity-node_name
-                                     it_range           = zcl_sadl_filter=>get_provider_range( mt_condition_providers )
+                                     ir_key             = zcl_sadl_filter=>get_key_from_range( zcl_sadl_filter=>get_provider_range( mt_condition_providers ) )
                                      iv_where           = zcl_sadl_filter=>get_sadl_where( lt_complex_condition )
                                      is_requested       = is_requested
                            CHANGING  ct_data_rows       = et_data_rows

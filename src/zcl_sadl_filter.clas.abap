@@ -10,18 +10,22 @@ CLASS zcl_sadl_filter DEFINITION
                                            WITH UNIQUE SORTED KEY provider COMPONENTS table_line .
 
     CLASS-METHODS get_sadl_where
-      IMPORTING it_sadl_conditions    TYPE if_sadl_query_engine_types=>tt_complex_condition
-      RETURNING VALUE(rv_where) TYPE string .
+      IMPORTING it_sadl_conditions TYPE if_sadl_query_engine_types=>tt_complex_condition
+      RETURNING VALUE(rv_where)    TYPE string .
 
     CLASS-METHODS get_provider_range
       IMPORTING it_condition_provider TYPE tt_condition_provider
-      RETURNING VALUE(rt_range) TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range .
+      RETURNING VALUE(rt_range)       TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range.
+
+    CLASS-METHODS get_key_from_range
+      IMPORTING it_range      TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range
+      RETURNING VALUE(rr_key) TYPE REF TO data.
 
     CLASS-METHODS get_stream_filter
       IMPORTING
-                !io_request TYPE REF TO /iwbep/if_mgw_req_entity
-      EXPORTING ev_filter   TYPE string
-                et_filter   TYPE /iwbep/t_mgw_select_option.
+                io_request TYPE REF TO /iwbep/if_mgw_req_entity
+      EXPORTING ev_filter  TYPE string
+                et_filter  TYPE /iwbep/t_mgw_select_option.
     CLASS-METHODS get_stream_runtime
       IMPORTING
         !iv_service_name    TYPE csequence
@@ -57,11 +61,40 @@ ENDCLASS.
 CLASS ZCL_SADL_FILTER IMPLEMENTATION.
 
 
+  METHOD get_key_from_range.
+    DATA(lt_comp) = VALUE cl_abap_structdescr=>component_table( ).
+    LOOP AT it_range ASSIGNING FIELD-SYMBOL(<ls_range>).
+      INSERT VALUE #( name = <ls_range>-column_name
+                      type = cl_abap_elemdescr=>get_string( ) ) INTO TABLE lt_comp.
+    ENDLOOP.
+    CHECK lt_comp[] IS NOT INITIAL.
+
+    DATA(lr_handle) = cl_abap_structdescr=>create( lt_comp ).
+    CREATE DATA rr_key TYPE HANDLE lr_handle.
+    ASSIGN rr_key->* TO FIELD-SYMBOL(<ls_key>).
+
+    LOOP AT it_range ASSIGNING <ls_range>.
+      CHECK lines( <ls_range>-t_selopt[] ) = 1.
+
+      ASSIGN COMPONENT <ls_range>-column_name OF STRUCTURE <ls_key> TO FIELD-SYMBOL(<lv_field>).
+      <lv_field> = <ls_range>-t_selopt[ 1 ]-low.
+    ENDLOOP.
+  ENDMETHOD.
+
+
   METHOD get_provider_range.
     LOOP AT it_condition_provider INTO DATA(lo_provider).
-      CHECK lo_provider IS INSTANCE OF cl_sadl_cond_grouped_ranges.
+      DATA(lt_range) = COND #( WHEN lo_provider IS INSTANCE OF cl_sadl_cond_grouped_ranges
+                               THEN lcl_provider=>get_range( CAST #( lo_provider ) )
 
-      _merge_ranges( EXPORTING it_ranges = lcl_provider=>get_range( CAST #( lo_provider ) )
+                               WHEN lo_provider IS INSTANCE OF cl_sadl_condition_merger
+                               THEN CAST cl_sadl_condition_merger( lo_provider )->zz_mt_range
+
+                               WHEN lo_provider IS INSTANCE OF cl_sadl_cond_prov_navigation
+                               THEN CAST cl_sadl_cond_prov_navigation( lo_provider )->zz_mt_range ).
+      CHECK lt_range IS NOT INITIAL.
+
+      _merge_ranges( EXPORTING it_ranges = lt_range
                      CHANGING  ct_ranges = rt_range ).
     ENDLOOP.
   ENDMETHOD.
