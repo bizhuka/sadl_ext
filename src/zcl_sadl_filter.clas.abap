@@ -64,6 +64,8 @@ CLASS ZCL_SADL_FILTER IMPLEMENTATION.
   METHOD get_key_from_range.
     DATA(lt_comp) = VALUE cl_abap_structdescr=>component_table( ).
     LOOP AT it_range ASSIGNING FIELD-SYMBOL(<ls_range>).
+      ASSERT NOT line_exists( lt_comp[ name = <ls_range>-column_name ] ).
+
       INSERT VALUE #( name = <ls_range>-column_name
                       type = cl_abap_elemdescr=>get_string( ) ) INTO TABLE lt_comp.
     ENDLOOP.
