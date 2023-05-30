@@ -7,7 +7,7 @@ interface ZIF_SADL_READ_RUNTIME
   methods EXECUTE
     importing
       !IV_NODE_NAME type STRING
-      !IR_KEY type ref to DATA
+      !IS_FILTER type ANY
       !IV_WHERE type STRING
       !IS_REQUESTED type IF_SADL_QUERY_ENGINE_TYPES=>TY_REQUESTED
     changing

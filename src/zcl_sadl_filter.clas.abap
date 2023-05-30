@@ -17,9 +17,9 @@ CLASS zcl_sadl_filter DEFINITION
       IMPORTING it_condition_provider TYPE tt_condition_provider
       RETURNING VALUE(rt_range)       TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range.
 
-    CLASS-METHODS get_key_from_range
+    CLASS-METHODS get_filter_from_range
       IMPORTING it_range      TYPE if_sadl_cond_provider_grpd_rng=>tt_grouped_range
-      RETURNING VALUE(rr_key) TYPE REF TO data.
+      RETURNING VALUE(rr_filter) TYPE REF TO data.
 
     CLASS-METHODS get_stream_filter
       IMPORTING
@@ -61,7 +61,7 @@ ENDCLASS.
 CLASS ZCL_SADL_FILTER IMPLEMENTATION.
 
 
-  METHOD get_key_from_range.
+  METHOD get_filter_from_range.
     DATA(lt_comp) = VALUE cl_abap_structdescr=>component_table( ).
     LOOP AT it_range ASSIGNING FIELD-SYMBOL(<ls_range>).
       ASSERT NOT line_exists( lt_comp[ name = <ls_range>-column_name ] ).
@@ -69,16 +69,23 @@ CLASS ZCL_SADL_FILTER IMPLEMENTATION.
       INSERT VALUE #( name = <ls_range>-column_name
                       type = cl_abap_elemdescr=>get_string( ) ) INTO TABLE lt_comp.
     ENDLOOP.
-    CHECK lt_comp[] IS NOT INITIAL.
+
+    IF lt_comp[] IS INITIAL.
+      TYPES: BEGIN OF ts_no_filter,
+              no_filter TYPE symandt,
+             END OF ts_no_filter.
+      rr_filter = NEW ts_no_filter( ).
+      RETURN.
+    ENDIF.
 
     DATA(lr_handle) = cl_abap_structdescr=>create( lt_comp ).
-    CREATE DATA rr_key TYPE HANDLE lr_handle.
-    ASSIGN rr_key->* TO FIELD-SYMBOL(<ls_key>).
+    CREATE DATA rr_filter TYPE HANDLE lr_handle.
+    ASSIGN rr_filter->* TO FIELD-SYMBOL(<ls_filter>).
 
     LOOP AT it_range ASSIGNING <ls_range>.
-      CHECK lines( <ls_range>-t_selopt[] ) = 1.
+      CHECK lines( <ls_range>-t_selopt[] ) = 1. " SIGN = 'EQ' ?
 
-      ASSIGN COMPONENT <ls_range>-column_name OF STRUCTURE <ls_key> TO FIELD-SYMBOL(<lv_field>).
+      ASSIGN COMPONENT <ls_range>-column_name OF STRUCTURE <ls_filter> TO FIELD-SYMBOL(<lv_field>).
       <lv_field> = <ls_range>-t_selopt[ 1 ]-low.
     ENDLOOP.
   ENDMETHOD.
