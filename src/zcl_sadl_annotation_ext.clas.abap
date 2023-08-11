@@ -48,7 +48,7 @@ CLASS ZCL_SADL_ANNOTATION_EXT IMPLEMENTATION.
         CLEAR ro_exit.
     ENDTRY.
 
-    INSERT VALUE #( name = iv_class_name
+    INSERT VALUE #( name = lv_class_name
                     exit = ro_exit ) INTO TABLE mt_cache.
   ENDMETHOD.
 ENDCLASS.

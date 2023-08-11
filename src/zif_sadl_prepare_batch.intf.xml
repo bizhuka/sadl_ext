@@ -1,0 +1,48 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_INTF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOINTERF>
+    <CLSNAME>ZIF_SADL_PREPARE_BATCH</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>@ZABAP.virtualEntity</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <UNICODE>X</UNICODE>
+   </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CMPNAME>PREPARE</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Prepare SADL CRUD</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>PREPARE</CMPNAME>
+     <SCONAME>/IWBEP/CX_MGW_BUSI_EXCEPTION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Business Exception</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>PREPARE</CMPNAME>
+     <SCONAME>/IWBEP/CX_MGW_TECH_EXCEPTION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Technical Exception</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>PREPARE</CMPNAME>
+     <SCONAME>CX_SADL_CONTRACT_VIOLATION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Consumer Fault</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>PREPARE</CMPNAME>
+     <SCONAME>CX_SADL_STATIC</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>External errors during SADL processing</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
+  </asx:values>
+ </asx:abap>
+</abapGit>

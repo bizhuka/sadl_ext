@@ -1,16 +1,18 @@
-interface ZIF_SADL_READ_RUNTIME
-  public .
+INTERFACE zif_sadl_read_runtime PUBLIC.
 
+  INTERFACES zif_sadl_exit.
 
-  interfaces ZIF_SADL_EXIT .
+  METHODS execute
+    IMPORTING
+      !iv_node_name       TYPE string
+      !is_filter          TYPE any
+      !iv_where           TYPE string
+      !is_requested       TYPE if_sadl_query_engine_types=>ty_requested
+    CHANGING
+      !ct_data_rows       TYPE STANDARD TABLE
+      !cv_number_all_hits TYPE i
+    RAISING
+      "cx_sadl_contract_violation
+      cx_sadl_static.
 
-  methods EXECUTE
-    importing
-      !IV_NODE_NAME type STRING
-      !IS_FILTER type ANY
-      !IV_WHERE type STRING
-      !IS_REQUESTED type IF_SADL_QUERY_ENGINE_TYPES=>TY_REQUESTED
-    changing
-      !CT_DATA_ROWS type STANDARD TABLE
-      !CV_NUMBER_ALL_HITS type I .
-endinterface.
+ENDINTERFACE.

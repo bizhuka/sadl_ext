@@ -1,0 +1,113 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<abapGit version="v1.0.0" serializer="LCL_OBJECT_INTF" serializer_version="v1.0.0">
+ <asx:abap xmlns:asx="http://www.sap.com/abapxml" version="1.0">
+  <asx:values>
+   <VSEOINTERF>
+    <CLSNAME>ZIF_SADL_STREAM_RUNTIME</CLSNAME>
+    <LANGU>E</LANGU>
+    <DESCRIPT>@ZABAP.virtualEntity</DESCRIPT>
+    <EXPOSURE>2</EXPOSURE>
+    <STATE>1</STATE>
+    <UNICODE>X</UNICODE>
+   </VSEOINTERF>
+   <DESCRIPTIONS>
+    <SEOCOMPOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Write binary data</DESCRIPT>
+    </SEOCOMPOTX>
+    <SEOCOMPOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Read binary data</DESCRIPT>
+    </SEOCOMPOTX>
+   </DESCRIPTIONS>
+   <DESCRIPTIONS_SUB>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <SCONAME>/IWBEP/CX_MGW_BUSI_EXCEPTION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Business Exception</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <SCONAME>/IWBEP/CX_MGW_TECH_EXCEPTION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Technical Exception</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <SCONAME>IO_SRV_RUNTIME</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>OData Channel - Application Convenience Interface</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <SCONAME>IO_TECH_REQUEST_CONTEXT</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Request Details for Entity Create Operation</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <SCONAME>IS_MEDIA_RESOURCE</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Media Type Information</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <SCONAME>IT_KEY_TAB</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>table for name value pairs</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>CREATE_STREAM</CMPNAME>
+     <SCONAME>IT_NAVIGATION_PATH</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>table of navigation paths</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <SCONAME>/IWBEP/CX_MGW_BUSI_EXCEPTION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Business Exception</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <SCONAME>/IWBEP/CX_MGW_TECH_EXCEPTION</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Technical Exception</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <SCONAME>ES_RESPONSE_CONTEXT</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Feed request response information (Entity)</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <SCONAME>IO_SRV_RUNTIME</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>OData Channel - Application Convenience Interface</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <SCONAME>IO_TECH_REQUEST_CONTEXT</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>Request Details for Entity Read Operation</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <SCONAME>IT_KEY_TAB</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>table for name value pairs</DESCRIPT>
+    </SEOSUBCOTX>
+    <SEOSUBCOTX>
+     <CMPNAME>GET_STREAM</CMPNAME>
+     <SCONAME>IT_NAVIGATION_PATH</SCONAME>
+     <LANGU>E</LANGU>
+     <DESCRIPT>table of navigation paths</DESCRIPT>
+    </SEOSUBCOTX>
+   </DESCRIPTIONS_SUB>
+  </asx:values>
+ </asx:abap>
+</abapGit>
